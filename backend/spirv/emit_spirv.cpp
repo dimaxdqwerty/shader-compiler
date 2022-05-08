@@ -97,6 +97,10 @@ void Invoke(EmitContext& ctx, IR::Inst* inst) {
 }
 
 void EmitInst(EmitContext& ctx, IR::Inst* inst) {
+    if (inst->Ignored()) {
+        return;
+    }
+
     switch (inst->GetOpcode()) {
 #define OPCODE(name, result_type, ...)                                                             \
     case IR::Opcode::name:                                                                         \
@@ -480,6 +484,7 @@ void PatchPhiNodes(IR::Program& program, EmitContext& ctx) {
 
 std::vector<u32> EmitSPIRV(const Profile& profile, const RuntimeInfo& runtime_info,
                            IR::Program& program, Bindings& bindings) {
+    IR::ResetProgram(program);
     EmitContext ctx{profile, runtime_info, program, bindings};
     const Id main{DefineMain(ctx, program)};
     DefineEntryPoint(program, ctx, main);

@@ -32,4 +32,6 @@ struct Program {
 
 [[nodiscard]] std::string DumpProgram(const Program& program);
 
+void ResetProgram(Program& program);
+
 } // namespace Shader::IR

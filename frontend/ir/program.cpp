@@ -29,4 +29,12 @@ std::string DumpProgram(const Program& program) {
     return ret;
 }
 
+void ResetProgram(Program& program) {
+    for (IR::Block* const block : program.blocks) {
+        for (IR::Inst& inst : block->Instructions()) {
+            inst.Reset();
+        }
+    }
+}
+
 } // namespace Shader::IR

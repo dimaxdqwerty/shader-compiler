@@ -234,6 +234,21 @@ public:
         use_count += count;
     }
 
+    /// Marks that the instruction should be ignored by the emitter
+    void Ignore() {
+        ignored = true;
+    }
+
+    bool Ignored() const {
+        return ignored;
+    }
+
+    /// Resets the instruction to it's pre-emission state
+    void Reset() {
+        ignored = false;
+        definition = 0;
+    }
+
 private:
     struct NonTriviallyDummy {
         NonTriviallyDummy() noexcept {}
@@ -252,6 +267,7 @@ private:
         std::array<Value, 5> args;
     };
     std::unique_ptr<AssociatedInsts> associated_insts;
+    bool ignored{};
 };
 static_assert(sizeof(Inst) <= 128, "Inst size unintentionally increased");
 
