@@ -60,6 +60,8 @@ struct Profile {
     bool has_broken_signed_operations{};
     /// Float controls break when fp16 is enabled
     bool has_broken_fp16_float_controls{};
+    /// When taking a variable decorated with 'Builtin Position' as input, some drivers will crash if it is not wrapped in a struct
+    bool has_broken_spirv_position_input{};
     /// Dynamic vec4 indexing is broken on some OpenGL drivers
     bool has_gl_component_indexing_bug{};
     /// The precise type qualifier is broken in the fragment stage of some drivers
