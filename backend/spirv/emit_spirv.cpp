@@ -430,12 +430,10 @@ void SetupCapabilities(const Profile& profile, const Info& info, EmitContext& ct
     if ((info.uses_subgroup_vote || info.uses_subgroup_invocation_id ||
          info.uses_subgroup_shuffles) &&
         profile.support_vote) {
-        ctx.AddExtension("SPV_KHR_shader_ballot");
-        ctx.AddCapability(spv::Capability::SubgroupBallotKHR);
+        ctx.AddCapability(spv::Capability::GroupNonUniformBallot);
         if (!profile.warp_size_potentially_larger_than_guest) {
             // vote ops are only used when not taking the long path
-            ctx.AddExtension("SPV_KHR_subgroup_vote");
-            ctx.AddCapability(spv::Capability::SubgroupVoteKHR);
+            ctx.AddCapability(spv::Capability::GroupNonUniformVote);
         }
     }
     if (info.uses_int64_bit_atomics && profile.support_int64_atomics) {
